@@ -49,6 +49,6 @@ elif (direction == 'E' or direction == 'e'):
 elif (direction == 'W' or direction == 'w'):
     print('West')    
 else:
-    print('bye!')
+    print('bye!') 
 
 
