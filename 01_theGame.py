@@ -78,7 +78,7 @@ def fight(PlayerHP,OpponentHP, PlayerHPbonus, OpponentHPbonus,playerRand, oppone
     # 1) randomly generated starting player function here, as for now Player starts always: OpponentHP=OpponentHP-PlayerHPbonus
     # 2) player hit bonus luck = % of chance of the 2nd hit during his round
     while (PlayerHP > 0) and (OpponentHP > 0):
-        os.system('clear')
+        os.system('clear')  # this should be removed later, it is OK only for testing
         print('\nTy: ',PlayerHP,' vs przeciwnik: ',OpponentHP,' rand bonus: ',playerRand,'vs ', opponentRand)
         time.sleep(sleepValue)
         print('\nZadajesz cios, przeciwnik traci: ',PlayerHPbonus,'\n')
@@ -101,15 +101,35 @@ def fight(PlayerHP,OpponentHP, PlayerHPbonus, OpponentHPbonus,playerRand, oppone
         print("Mierzycie się wzrokiem ale żaden z was nie odważy się na nic więcej...")
         result=PlayerHP
     return(result)                      # result gives new HP for player
-def talk():
+def talk():     # (future) talking with NPCs
     print('talk function')
-def walk():
-    print('walk function')
-def pickUp():
+def walk(input_direction):     # (IN PROGRESS...) moving aroung the grid
+    print('walk function',playerPos[0])
+
+    if (input_direction == 'N' or input_direction == 'n'):
+        playerPos[1]+=1     # works ok, increasing the Y coordinate
+        print('playerPos: ',playerPos,'grid: ',[currentPlace for currentPlace, currentGrid in gameFields.items() if currentGrid==playerPos])        # kurwa nie wiem jak ale to działa jeśli ==[1,1] / ale już currentGrid==playerPos troche mniej
+        print('you moved North with use of walk()')
+    elif (input_direction == 'S' or input_direction == 's'):
+        playerPos[1]-=1
+        print(playerPos)
+        print('you moved South with use of walk()')
+    elif (input_direction == 'E' or input_direction == 'e'):
+        playerPos[0]+=1
+        print(playerPos)
+        print('you moved East with use of walk()')
+    elif (input_direction == 'W' or input_direction == 'w'):
+        playerPos[0]-=1
+        print(playerPos)
+        print('you moved West with use of walk()')    
+    else:
+        print('walk() says bye!')
+def pickUp():   # (future) pick up an object function
     print('pickUp function')
-def enter():
+def enter():    # (future) entering the buildings
     print('enter function')
 
+# following should be moved to a separate file I guess... 
 hillsDesc='Skaliste wzgórza wapienne, brak roślinności jeśli nie liczyć skąpych, na wpół uschniętych badyli wystających spośród skał'
 riverValeyDesc='Dolina dzikiej rzeki. Wartki nurt z poszarpanymi brzegami. Zakole rzeki wyglądają na obiecujące łowisko.'
 swampDesc='Bagna, bardzo niebezpieczne miejsce. Rzekłbym nawet, że dość wciągające... Wycofaj się albo...'
@@ -124,60 +144,73 @@ playerName='Stefan'
 monsterDesc='Cuchnące bydlę. Tymczasowe, póki czegoś nie wymyślę cuchnące bydlę.'
 monsterName='Arghargor, dla przyjaciół Pikuś'
 
-hills = Field           (True,  False, True,  False, hillsDesc,        'hills',        [0,0])
-riverValey = Field      (True,  False, True,  True,  riverValeyDesc,   'riverValey',   [1,0])
-swamp = Field           (True,  False, False, True,  swampDesc,        'swamp',        [2,0])
-marsch = Field          (True,  True,  False, True,  marschDesc,       'marsch',       [2,1])
-meadow = Field          (True,  True,  True,  True,  meadowDesc,       'meadow',       [1,1])   # GAME STARTS HERE!
-dessert = Field         (True,  True,  True,  False, dessertDesc,      'dessert',      [0,1])
-thickForrest = Field    (False, True,  False, True,  thickForrestDesc, 'thickForrest', [2,2])
-wilderness = Field      (True,  True,  True,  True,  wildernessDesc,   'wilderness',   [1,2])
-village = Field         (True,  True,  True,  False, villageDesc,      'village',      [0,2])
+# dict mapping the locations to grid system
+gameFields={'hills'         :[0,0],              #   grid coordinates [x,y]
+            'riverValey'    :[1,0],              #
+            'swamp'         :[2,0],              #   [0,2]   [1,2]   [2,2]
+            'marsch'        :[2,1],              #
+            'meadow'        :[1,1],              #   [0,1]   [1,1]   [2,1]
+            'dessert'       :[0,1],              #
+            'thickForrest'  :[2,2],              #   [0,0]   [1,0]   [2,0]
+            'wilderness'    :[1,2],              #
+            'village'       :[0,2]               #   game starts in the middle [1,1]
+            }
 
-sleepValue=.1
-playerPos = [1,1]
-playerLoc = True            # True - outside, False - entered any building
-playerHP = 100
-playerImmortal = False      # DEFINE LATER OVERALL SYSTEM OF STATS MAINTENANCE AND PASSING
-playerHPbonus = 10
-monsterPos = [1,1]
-monsterLoc = True
-monsterHP = 100              # ------------> CHANGE THIS FOR FIGHTING TESTS <--------------
-monsterImmportal = False    # like before, this is for fight test only now
-monsterHPbonus = 10         # whatever, needs to be designed later
-playerRand=random.randrange(10)
-monsterRand=random.randrange(10)
+# class Field(...) instances
+# instance_name = Field (0,     1,      2,    3,     4,                 5,              6                           )
+# 0 = can go North from here (True/False)
+# 1 = can go South from here (True/False)
+# 2 = can go East from here (True/False)
+# 3 = can go West from here (True/False)
+# 4 = long text description to be printed each time player appears here
+# 5 = instance short name, to be used somehow with walk() function to describe movement
+# 6 = grid system
+hills = Field           (True,  False, True,  False, hillsDesc,        'hills',        gameFields['hills']          )
+riverValey = Field      (True,  False, True,  True,  riverValeyDesc,   'riverValey',   gameFields['riverValey']     )
+swamp = Field           (True,  False, False, True,  swampDesc,        'swamp',        gameFields['swamp']          )
+marsch = Field          (True,  True,  False, True,  marschDesc,       'marsch',       gameFields['marsch']         )
+meadow = Field          (True,  True,  True,  True,  meadowDesc,       'meadow',       gameFields['meadow']         )   # GAME STARTS HERE!
+dessert = Field         (True,  True,  True,  False, dessertDesc,      'dessert',      gameFields['dessert']        )
+thickForrest = Field    (False, True,  False, True,  thickForrestDesc, 'thickForrest', gameFields['thickForrest']   )
+wilderness = Field      (True,  True,  True,  True,  wildernessDesc,   'wilderness',   gameFields['wilderness']     )
+village = Field         (True,  True,  True,  False, villageDesc,      'village',      gameFields['village']        )
 
+sleepValue=.1                       # sleep value used in fight, when reprinting is done. May not be used in final game?
+playerPos = gameFields['meadow']    # initial player position           
+playerLoc = True                    # True - outside, False - entered any building
+playerHP = 100                      # initial player health points.
+playerImmortal = False              # DEFINE LATER OVERALL SYSTEM OF STATS MAINTENANCE AND PASSING
+playerHPbonus = 10                  # initial player's attack bonus
+monsterPos = [1,1]                  # TEMPORARY TEST MONSTER (POSITION)
+monsterLoc = True                   # TEMPORARY TEST MONSTER (outside the building)
+monsterHP = 100                     # TEMPORARY TEST MONSTER (health points), CHANGE THIS FOR FIGHTING TESTS 
+monsterImmportal = False            # TEMPORARY TEST MONSTER (can be killed lock off if False) like before, this is for fight test only now
+monsterHPbonus = 10                 # TEMPORARY TEST MONSTER (attack bonus), needs to be designed later
+playerRand=random.randrange(10)     # random used for fighting tests
+monsterRand=random.randrange(10)    # random used for fighting tests
+# player 1 defined here (as well as dummy test monster)
 player = Player (playerDesc, playerName, playerPos, playerLoc, playerHP, playerImmortal, playerHPbonus)
 dummyMonster = Monster(monsterDesc, monsterName, monsterPos, monsterLoc, monsterHP, monsterImmportal, monsterHPbonus)
 
+while (playerHP>0):
+    # print('\n*** TEST ODCZYTU KIERUNKU ORAZ DZIAŁANIA KLASY FIELD ***\n')
+    # print('Przybywasz na miejsce. '+meadowDesc)
+    direction=input('Znajdujesz się na polu: '+str(playerPos)+', gdzie chcesz póść dalej? [N/S/E/W]: ')
+    walk(direction)
 
+    # print('\n')  
+    # print('\n*** TEST SYSTEMU WALKI (on hold, seems to work***\n')
+    # print('Walka pomiędzy',player.name,'oraz', dummyMonster.name)
+    # print('Masz obecnie',playerHP,'a Twój przeciwnik',monsterHP)
+    # playerHP=fight(playerHP, monsterHP, playerHPbonus, monsterHPbonus, playerRand, monsterRand)
+    # print('\n\nTest przekazania HP po walce do statystyk gracza')
+    # print('playerHP=',playerHP)
+    # print('Walka numer 2')
+    # playerHP=fight(playerHP, monsterHP, playerHPbonus, monsterHPbonus, playerRand, monsterRand)
+    # print("\nRessurection xD")
 
-print('\n*** TEST ODCZYTU KIERUNKU ORAZ DZIAŁANIA KLASY FIELD ***\n')
-print('Przybywasz na miejsce. '+meadowDesc)
-direction=input('Gdzie chcesz póść dalej? [N/S/E/W] ')
+    print("You are in:",playerPos,"right now.")
 
-if (direction == 'N' or direction == 'n'):
-    print('North')
-elif (direction == 'S' or direction == 's'):
-    print('South')
-elif (direction == 'E' or direction == 'e'):
-    print('East')
-elif (direction == 'W' or direction == 'w'):
-    print('West')    
-else:
-    print('bye!')
-print('\n')  
-print('\n*** TEST SYSTEMU WALKI ***\n')
-print('Walka pomiędzy',player.name,'oraz', dummyMonster.name)
-print('Masz obecnie',playerHP,'a Twój przeciwnik',monsterHP)
-
-playerHP=fight(playerHP, monsterHP, playerHPbonus, monsterHPbonus, playerRand, monsterRand)
-print('\n\nTest przekazania HP po walce do statystyk gracza')
-print('playerHP=',playerHP)
-print('Walka numer 2')
-playerHP=fight(playerHP, monsterHP, playerHPbonus, monsterHPbonus, playerRand, monsterRand)
-
-print('\n\n')  
+    print('\n\n')  
 
 
