@@ -104,8 +104,8 @@ def fight(PlayerHP,OpponentHP, PlayerHPbonus, OpponentHPbonus,playerRand, oppone
         print("Mierzycie się wzrokiem ale żaden z was nie odważy się na nic więcej...")
         result=PlayerHP
     return(result)                      # result gives new HP for player
-def talk():     # (future) talking with NPCs
-    print('talk function')
+def talk(input):     # (future) talking with NPCs
+    print('talk function',input)
 # TO DO LIST (walk):
 # 1) use retrieved key from gameFields{} to present on screen
 # 2) define something more useful in else: for bad user input
@@ -240,10 +240,15 @@ hiddenKey = Item(hiddenKeyDesc, hiddenKeyName, hiddenKeyPos, hiddenKeyLoc, hidde
 
 print('Przybywasz na miejsce. '+fields.meadowDescription()+'\n')    # CHANGE THIS if starting position is changed. Otherwise its a direct callout of field description
 while (playerHP>0):
-
     show_grid=[current_Place for current_Place, current_Grid in gameFields.items() if current_Grid==playerPos]
-    direction=input('Znajdujesz się na polu: '+str(player.grid)+' '+str(show_grid)+', gdzie chcesz póść dalej? ')
-    walk_result=walk(direction)
+    u_inp=input('Znajdujesz się na polu: '+str(player.grid)+' '+str(show_grid)+', gdzie chcesz póść dalej? ')
+    # make this OR thing shorter somehow !!!
+    if (u_inp=='N'or u_inp=='n'or u_inp=='S'or u_inp=='s'or u_inp=='E'or u_inp=='e'or u_inp=='W'or u_inp=='w'):
+            walk_result=walk(u_inp)
+    elif ((u_inp=='T'or u_inp=='t')):
+        talk(u_inp)
+    else:
+        print('USE YOU KEYBOARD WISELY...')
     show_desc=[x for x, current_Desc in gameFieldsDesc.items() if current_Desc==playerPos]
     # print('walk result',walk_result)
     print(str(show_desc[0]))
