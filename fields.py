@@ -51,7 +51,6 @@ Albo dzików.
 Albo uganiających się za nimi Galami.
 Rzymian nie stwierdzono.
 '''
-    return(text)
 def wildernessDescription():    
     text='''
 Las, gdzie dzikie zwierzęta czują się najlepiej.
@@ -61,6 +60,7 @@ półtonowy niedźwiedź stojący 20 metrów na prost...
 10 metrów...
 Serio? Dalej to czytasz?
 '''
+
     return(text)
 def villageDescription():    
     text='''
