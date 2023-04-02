@@ -1,6 +1,9 @@
 import os
 import time
 import random
+import fields 
+# import functions (later all fights etc to be moved there)
+
 os.system('clear')
 #________________________________MUD GAME________________________________
 
@@ -113,26 +116,38 @@ def walk(input_direction):     # moving aroung the grid, gets input from user (n
     # reads the current position to check where can player go:
     current_grid=[currentPlace for currentPlace, currentGrid in gameFields.items() if currentGrid==playerPos] # searching values in dict:gameFields{} to get the key (field name) 
     # print("Before the movement: ",current_grid)
-    if (input_direction == 'N' or input_direction == 'n'):
+    if ((input_direction == 'N' or input_direction == 'n')):
         time.sleep(sleepValue)
-        playerPos[1]=playerPos[1]+1     # increase the Y coordinate by 1
-        time.sleep(sleepValue)  
-        print('Kierujesz się na północ...')
+        if playerPos[1]==2:
+            print('KONIEC MAPY !!!!!!')
+        else:
+            playerPos[1]=playerPos[1]+1     # increase the Y coordinate by 1
+            time.sleep(sleepValue)  
+            print('Kierujesz się na północ...')
     elif (input_direction == 'S' or input_direction == 's'):
         time.sleep(sleepValue)
-        playerPos[1]=playerPos[1]-1 # decrease the Y coordinate by 1
-        time.sleep(sleepValue)
-        print('Kierujesz się na południe...')
+        if playerPos[1]==0:
+            print('KONIEC MAPY !!!!!!')
+        else:
+            playerPos[1]=playerPos[1]-1 # decrease the Y coordinate by 1
+            time.sleep(sleepValue)
+            print('Kierujesz się na południe...')
     elif (input_direction == 'E' or input_direction == 'e'):
         time.sleep(sleepValue)
-        playerPos[0]=playerPos[0]+1 # increase the X coordinate by 1
-        time.sleep(sleepValue)
-        print('Kierujesz się na wschód...')
+        if playerPos[0]==2:
+            print('KONIEC MAPY !!!!!!')
+        else:
+            playerPos[0]=playerPos[0]+1 # increase the X coordinate by 1
+            time.sleep(sleepValue)
+            print('Kierujesz się na wschód...')
     elif (input_direction == 'W' or input_direction == 'w'):
         time.sleep(sleepValue)
-        playerPos[0]=playerPos[0]-1 # decrease the X coordinate by 1
-        time.sleep(sleepValue)
-        print('Kierujesz się na zachód...')    
+        if playerPos[0]==0:
+            print('KONIEC MAPY !!!!!!')
+        else:
+            playerPos[0]=playerPos[0]-1 # decrease the X coordinate by 1
+            time.sleep(sleepValue)
+            print('Kierujesz się na zachód...')    
     else:
         print('Ech... Wciśnij "N", jeśli chcesz iść na północ, "S" gdy na południe, "W" poprowadzi Cię na zachód, "E" prowadzi Cię na wchód')
     time.sleep(sleepValue)
@@ -145,16 +160,7 @@ def enter():    # (future) entering the buildings
 
 # following should be moved to a separate file I guess... 
 
-
-hillsDesc='Skaliste wzgórza wapienne, brak roślinności jeśli nie liczyć skąpych, na wpół uschniętych badyli wystających spośród skał'
-riverValeyDesc='Dolina dzikiej rzeki. Wartki nurt z poszarpanymi brzegami. Zakole rzeki wyglądają na obiecujące łowisko.'
-swampDesc='Bagna, bardzo niebezpieczne miejsce. Rzekłbym nawet, że dość wciągające... Wycofaj się albo...'
-marshDesc='Mokradła, wilgotne i nieprzyjemne miejsce. Lepiej się tu nie zapuszczać, no chyba że się nie boisz.'
-meadowDesc='Pełno tu pachnących ziół o odurzającym zapachu. Równinę przerzynają drogi białe i trochę zieleniejące od z rzadka porastającej je trawy;\n ku nim, niby strumienie ku rzekom, przybiegają z pól miedze, całe błękitne od bławatków, żółte od kamioły, różowe od dzięcieliny i smółek.\nZ obu stron każdej drogi szerokim pasem bieleją bujne rumianki i wyższe od nich kwiaty marchewnika, słają się w trawach fioletowe rohule, żółtymi gwiazdkami świecą brodawniki i kurze ślepoty.\nNienawidziłeś Orzeszkowej szczerze od dziecka. Do dziś na samo wspomnienie tego bełkotu zbiera Ci się na wymioty.'
-dessertDesc='Pustynia, piaszczysta i nudna jak flaki z olejem. Z tym, że flaki z olejem zwykle nie występują na pustyni. No, chyba że ktoś zbyt długo na niej przebywa.'
-thickForrestDesc='Gęsty las, mroczne miejsce. W sam raz dla wiedźm. Albo dzików. Albo uganiających się za nimi Galami. Rzymian nie stwierdzono.'
-wildernessDesc='Las, gdzie dzikie zwierzęta czują się najlepiej. O na przykład takie, jak ten urodzy, półtonowy niedźwiedź stojący 20 metrów na prost... 15 metrów... 10 metrów... Serio? Dalej to czytasz?'
-villageDesc='Wioska, po środku karczma. Krowa robi "Muuuu...".'
+# removed description was here
 
 playerDesc='Mięśniak z kozikiem. Półmetrowej długości kozikiem.'
 playerName='Stefan'
@@ -177,15 +183,15 @@ gameFields ={'hills'                :[0,0],             #   grid coordinates [x,
              'village'              :[0,2]              #   game starts in the middle [1,1]
             }
 # dict mapping the field descriptions to grid system
-gameFieldsDesc={ hillsDesc          :[0,0],             #
-                 riverValeyDesc     :[1,0],             #
-                 swampDesc          :[2,0],             #
-                 marshDesc          :[2,1],             #
-                 meadowDesc         :[1,1],             #
-                 dessertDesc        :[0,1],             #
-                 thickForrestDesc   :[2,2],             #
-                 wildernessDesc     :[1,2],             #
-                 villageDesc        :[0,2]              #
+gameFieldsDesc={ fields.hillsDescription()          :[0,0],             #
+                 fields.riverValeyDescription()     :[1,0],             #
+                 fields.swampDescription()          :[2,0],             #
+                 fields.marshDescription()          :[2,1],             #
+                 fields.meadowDescription()         :[1,1],             #
+                 fields.dessertDescription()        :[0,1],             #
+                 fields.thickForrestDescription()   :[2,2],             #
+                 fields.wildernessDescription()     :[1,2],             #
+                 fields.villageDescription()        :[0,2]              #
             }
 
 
@@ -198,15 +204,15 @@ gameFieldsDesc={ hillsDesc          :[0,0],             #
 # 4 = long text description to be printed each time player appears here
 # 5 = instance short name, to be used somehow with walk() function to describe movement
 # 6 = grid system
-hills = Field           (True,  False, True,  False, gameFieldsDesc[hillsDesc],         'hills',        gameFields['hills']          )
-riverValey = Field      (True,  False, True,  True,  gameFieldsDesc[riverValeyDesc],    'riverValey',   gameFields['riverValey']     )
-swamp = Field           (True,  False, False, True,  gameFieldsDesc[swampDesc],         'swamp',        gameFields['swamp']          )
-marsh = Field           (True,  True,  False, True,  gameFieldsDesc[marshDesc],         'marsh',        gameFields['marsh']          )
-meadow = Field          (True,  True,  True,  True,  gameFieldsDesc[meadowDesc],        'meadow',       gameFields['meadow']         )   # GAME STARTS HERE!
-dessert = Field         (True,  True,  True,  False, gameFieldsDesc[dessertDesc],       'dessert',      gameFields['dessert']        )
-thickForrest = Field    (False, True,  False, True,  gameFieldsDesc[thickForrestDesc],  'thickForrest', gameFields['thickForrest']   )
-wilderness = Field      (True,  True,  True,  True,  gameFieldsDesc[wildernessDesc],    'wilderness',   gameFields['wilderness']     )
-village = Field         (True,  True,  True,  False, gameFieldsDesc[villageDesc],       'village',      gameFields['village']        )
+hills = Field           (True,  False, True,  False, gameFieldsDesc[fields.hillsDescription()],         'hills',        gameFields['hills']          )
+riverValey = Field      (True,  False, True,  True,  gameFieldsDesc[fields.riverValeyDescription()],    'riverValey',   gameFields['riverValey']     )
+swamp = Field           (True,  False, False, True,  gameFieldsDesc[fields.swampDescription()],         'swamp',        gameFields['swamp']          )
+marsh = Field           (True,  True,  False, True,  gameFieldsDesc[fields.marshDescription()],         'marsh',        gameFields['marsh']          )
+meadow = Field          (True,  True,  True,  True,  gameFieldsDesc[fields.meadowDescription()],        'meadow',       gameFields['meadow']         )   # GAME STARTS HERE!
+dessert = Field         (True,  True,  True,  False, gameFieldsDesc[fields.dessertDescription()],       'dessert',      gameFields['dessert']        )
+thickForrest = Field    (False, True,  False, True,  gameFieldsDesc[fields.thickForrestDescription()],  'thickForrest', gameFields['thickForrest']   )
+wilderness = Field      (True,  True,  True,  True,  gameFieldsDesc[fields.wildernessDescription()],    'wilderness',   gameFields['wilderness']     )
+village = Field         (True,  True,  True,  False, gameFieldsDesc[fields.villageDescription()],       'village',      gameFields['village']        )
 
 sleepValue=.5                       # sleep value used in fight, when reprinting is done. May not be used in final game?
 playerPos = [1,1]                   # initial player position [x,y]. It must be a list with direct values
@@ -232,14 +238,14 @@ player = Player (playerDesc, playerName, playerPos, playerLoc, playerHP, playerI
 dummyMonster = Monster(monsterDesc, monsterName, monsterPos, monsterLoc, monsterHP, monsterImmportal, monsterHPbonus)
 hiddenKey = Item(hiddenKeyDesc, hiddenKeyName, hiddenKeyPos, hiddenKeyLoc, hiddenKeyFound)
 
-print('Przybywasz na miejsce. '+meadowDesc+'\n')    # CHANGE THIS if starting position is changed. Otherwise its a direct callout of field description
+print('Przybywasz na miejsce. '+fields.meadowDescription()+'\n')    # CHANGE THIS if starting position is changed. Otherwise its a direct callout of field description
 while (playerHP>0):
 
     show_grid=[current_Place for current_Place, current_Grid in gameFields.items() if current_Grid==playerPos]
     direction=input('Znajdujesz się na polu: '+str(player.grid)+' '+str(show_grid)+', gdzie chcesz póść dalej? ')
     walk_result=walk(direction)
     show_desc=[x for x, current_Desc in gameFieldsDesc.items() if current_Desc==playerPos]
-    # print('Przed tobą... ',walk_result)
+    # print('walk result',walk_result)
     print(str(show_desc[0]))
     
 
