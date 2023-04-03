@@ -2,12 +2,15 @@ import os
 import time
 import random
 import fields 
+import talking
+import sys
+
 # import functions (later all fights etc to be moved there)
 os.system('clear')
 #________________________________MUD GAME________________________________
 print('Welcome to MUD game.\n')
 print('''
-LEGEND:
+LEGENDA:
 N = idź na północ
 S = idź na południe
 E = idź na wschód
@@ -17,7 +20,6 @@ T = rozmawiaj
 F = walcz (future)
 H = wyświetl pomoc
 ''')
-
 
 # TO DO LIST
 # 1) Create parent-child class system instead of following simple classes
@@ -114,15 +116,9 @@ def fight(PlayerHP,OpponentHP, PlayerHPbonus, OpponentHPbonus,playerRand, oppone
         print("Mierzycie się wzrokiem ale żaden z was nie odważy się na nic więcej...")
         result=PlayerHP
     return(result)                      # result gives new HP for player
-def talk(input):     # (future) talking with NPCs
-    if (playerPos == witchPos):
-        print(' - Czego chcesz, nieznajomy? Chcesz jabłuszko?')
-    elif (playerPos == innKeeperPos):
-        print(' - Co podać?')
-    elif (playerPos == princessPos):
-        print(' - Przybyłeś mnie uratować? No spoko, tylko wiesz... kratę otwórz.')
-    else:
-        print('...Sam ze sobą możesz najwyżej pogadać...')
+
+# def talk(input):     # (MOVED TO SEPARATE FILE)
+
 # TO DO LIST (walk):
 # 1) use retrieved key from gameFields{} to present on screen
 # 2) define something more useful in else: for bad user input
@@ -287,7 +283,7 @@ while (playerHP>0):
     if (u_inp=='N' or u_inp=='n' or u_inp=='S' or u_inp=='s' or u_inp=='E' or u_inp=='e' or u_inp=='W' or u_inp=='w'):
             walk_result=walk(u_inp)
     elif ((u_inp=='T' or u_inp=='t')):
-        talk(u_inp)
+        hiddenKeyFound=(talking.talk(playerPos, witchPos, innKeeperPos, princessPos, hiddenKeyFound))
     elif ((u_inp=='L' or u_inp=='l')):
         show_desc=[x for x, current_Desc in gameFieldsDesc.items() if current_Desc==playerPos]
         print(str(show_desc[0]))
@@ -307,7 +303,7 @@ while (playerHP>0):
             H = wyświetl pomoc
             ''')
     else:
-        print('USE YOU KEYBOARD WISELY...')
+        print('USE YOUR KEYBOARD WISELY...\n')
 
     
 
@@ -327,4 +323,4 @@ while (playerHP>0):
 
     # print('\n')  
 
-
+    
