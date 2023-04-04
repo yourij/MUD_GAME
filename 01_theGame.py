@@ -4,28 +4,16 @@ import random
 import fields 
 import talking
 
-
 # import functions (later all fights etc to be moved there)
 os.system('clear')
 #________________________________MUD GAME________________________________
 print('Welcome to MUD game.\n')
-print('''
-LEGENDA:
-N = idź na północ
-S = idź na południe
-E = idź na wschód
-W = idź na zachód
-L = rozejrzyj się
-T = rozmawiaj
-F = walcz (future)
-H = wyświetl pomoc
-''')
 
 # TO DO LIST
 # 1) Create parent-child class system instead of following simple classes
 # 2) ...and more :)
 class Field:
-    display_name = 'None'
+#   display_name = 'None'
     def __init__(self, North, South, East, West, appearance, name, grid) -> None:
         self.North = North          # boolean
         self.South = South          # boolean
@@ -34,14 +22,6 @@ class Field:
         self.apperance = appearance # string, long description
         self.name = name            # string, short
         self.grid = grid            # list, XY coordinates - in case of Field maybe tuple instead of list?
-    
-    @classmethod            # ON HOLD - how to print defined text names for new field by taking field data already created...?
-    def disp_name(disp_name_name):
-        return (disp_name_name)
-        pass
-
-
-
 class Place:
     def __init__(self, appearance, name, location, isLocked) -> None:
         self.apperance = appearance # string, long description
@@ -233,15 +213,15 @@ can_be_killed = True                # optional (see playerImmportal and similair
 can_not_be_killed = True            # optional (see playerImmportal and similair)
 
 # dict mapping the locations to grid system
-gameFields ={'hills'                :[0,0],             #   grid coordinates [x,y]
-             'riverValey'           :[1,0],             #
-             'swamp'                :[2,0],             #   [0,2]   [1,2]   [2,2]
-             'marsh'                :[2,1],             #
-             'meadow'               :[1,1],             #   [0,1]   [1,1]   [2,1]
-             'dessert'              :[0,1],             #
-             'thickForrest'         :[2,2],             #   [0,0]   [1,0]   [2,0]
-             'wilderness'           :[1,2],             #
-             'village'              :[0,2]              #   game starts in the middle [1,1]
+gameFields ={'hills'                :[0,0,'wzgórza'],             #   grid coordinates [x,y]
+             'riverValey'           :[1,0,'dolina rzeki'],             #
+             'swamp'                :[2,0,'bagna'],             #   [0,2]   [1,2]   [2,2]
+             'marsh'                :[2,1,'mokradła'],             #
+             'meadow'               :[1,1,'łąka'],             #   [0,1]   [1,1]   [2,1]
+             'dessert'              :[0,1,'pustynia'],             #
+             'thickForrest'         :[2,2,'gęsty las'],             #   [0,0]   [1,0]   [2,0]
+             'wilderness'           :[1,2,'las'],             #
+             'village'              :[0,2,'wioska']              #   game starts in the middle [1,1]
             }
 # dict mapping the field descriptions to grid system
 gameFieldsDesc={ fields.hillsDescription()          :[0,0],             #
@@ -282,31 +262,30 @@ innKeeper   = Npc(innKeeperDesc,    innKeeperName,  innKeeperPos,   innKeeperHP,
 dummyMonster = Monster(monsterDesc, monsterName, monsterPos, monsterLoc, monsterHP, monsterImmportal, monsterHPbonus)
 
 print('Przybywasz na miejsce. '+fields.meadowDescription()+'\n')    # CHANGE THIS if starting position is changed. Otherwise its a direct callout of field description
-
-# TEST AREA FOR NEW SHORT PARTS OF CODE........
-print('\n\n\n             ON HOLD - how to print defined text names for new field by taking field data already created...?\n\n\n\n\n\n\n')
-
-print(Field.disp_name)
-print(meadow.disp_name)
-print(hills.disp_name)
-
-# END OF TEST AREA
-
-
+print('''
+LEGENDA:
+N = idź na północ
+S = idź na południe
+E = idź na wschód
+W = idź na zachód
+L = rozejrzyj się
+T = rozmawiaj
+F = walcz (future)
+H = wyświetl pomoc
+''')
 while (playerHP>0):
-    show_grid=[current_Place for current_Place, current_Grid in gameFields.items() if current_Grid==playerPos]
-    u_inp=input('Znajdujesz się na polu: '+str(player.grid)+' '+str(show_grid))#+'.Podaj komendę\n (N) (S) (E) (W) (T) (L) (H) (F)? ')
+    show_grid=[current_Place for current_Place, current_Grid in gameFields.items() if current_Grid[0]==playerPos[0] and current_Grid[1]==playerPos[1]]
+    u_inp=input('Wokół Ciebie jest ' +str(gameFields[show_grid[0]][2]) + '. Co robisz? ')
     # make this OR thing shorter somehow !!!
     if (u_inp=='N' or u_inp=='n' or u_inp=='S' or u_inp=='s' or u_inp=='E' or u_inp=='e' or u_inp=='W' or u_inp=='w'):
             walk_result=walk(u_inp)
     elif ((u_inp=='T' or u_inp=='t')):
         hiddenKeyFound=(talking.talk(playerPos, witchPos, innKeeperPos, princessPos, hiddenKeyFound))       # zwraca hiddenKeyFound=None
-        print('KLUCZ return test: ',hiddenKeyFound)
     elif ((u_inp=='L' or u_inp=='l')):
         show_desc=[x for x, current_Desc in gameFieldsDesc.items() if current_Desc==playerPos]
         print(str(show_desc[0]))
     elif ((u_inp=='F' or u_inp=='f')):
-        print('\n - Walka nie gotowa, muszę napisać utworzyć potwory i skończyć system walki.')
+        print(' - Walka nie gotowa, muszę napisać utworzyć potwory i skończyć system walki.')
         print('...odezwał się jakiś głos wewnątrz Twojej głowy.')
     elif ((u_inp=='H' or u_inp=='h')):
         print('''
@@ -321,7 +300,7 @@ while (playerHP>0):
             H = wyświetl pomoc
             ''')
     else:
-        print('USE YOUR KEYBOARD WISELY...\n')
+        print('Nie rozumiem? Spróbuj pisać czytelnie: \n')
     
     
 

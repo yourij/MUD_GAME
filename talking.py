@@ -1,7 +1,10 @@
 import random
 import sys
+import time
+sleepValue=1
+
 def talk(playerPos, witchPos, innKeeperPos, princessPos, hiddenKeyFound):     # (future) talking with NPCs
-    print('KEY STATUS ',hiddenKeyFound)
+
 #____________INNKEEPER____________
     inn_hello = '''
  - Co podać? Tu jest menu (M):
@@ -38,8 +41,14 @@ def talk(playerPos, witchPos, innKeeperPos, princessPos, hiddenKeyFound):     # 
     witch_math = '\n - No dobrze, dam Ci coś jeśli powiesz, ile to jest '+str(random_math_question)+': '
     witch_gives_award = '\n - DOSKONALE! Widać, że znasz tabliczkę mnożenia! Weź proszę ten KLUCZ. :)\n'
     witch_gives_no_award = '\n - No chyba sobie żartujesz! Wróć, gdy się dowiesz ile to jest!\n'
+    witch_response_key1 = '\n - Aaa... mam go od dawna, ale jestem tak stara...'
+    witch_response_key2 = '\n - Poszukaj w okolicy, może we wiosce?'
     witch_goodbye1 = '\n - Do widzenia!\n'
     witch_goodbye2 = '\n - Nie wiem, o czym mówisz. Jestem zajęta, przyjdź kiedy indziej\n'
+#____________PLAYER____________
+    player_gets_key = 'Bierzesz do ręki zardzewiały klucz.'
+    player_responds_key = '\n - A możesz mi... Może Pani powiedzieć, do czego ten klucz?'
+
 #____________PRINCESS____________
     princess_hello_locked = ' - Przybyłeś mnie uratować? No spoko, tylko wiesz... kratę otwórz.'
     princess_hello_unlocked = ' - Powiedz, że potrafisz pozbyć się tej kraty. Och, tyle czasu już tu siedzę zamknięta... Buuu.... \nW tym momencie księżniczka rozpłakała się na dobre.'
@@ -91,9 +100,17 @@ def talk(playerPos, witchPos, innKeeperPos, princessPos, hiddenKeyFound):     # 
                 u_inp=input(witch_math)
                 if (u_inp==witch_math_quest[random_math_question]):
                     hiddenKeyFound=True
-                    print('KEY STATUS AFTER QUEST ',hiddenKeyFound)
                     print(witch_gives_award)
-                    # return(hiddenKeyFound)
+                    time.sleep(sleepValue) 
+                    print(player_gets_key)
+                    time.sleep(sleepValue)
+                    print(player_responds_key)
+                    time.sleep(sleepValue)
+                    print(witch_response_key1)
+                    time.sleep(sleepValue) 
+                    print(witch_response_key2)
+                    time.sleep(sleepValue) 
+                    print(witch_goodbye1)
                 else:
                     print(witch_gives_no_award)
             elif (u_inp=='N' or u_inp=='n'):
@@ -126,34 +143,63 @@ def talk(playerPos, witchPos, innKeeperPos, princessPos, hiddenKeyFound):     # 
                 print(princess_reacts_gate_opens)
                 print('\n\n\n')
                 print(princess_row01)
+                time.sleep(sleepValue/2)
                 print(princess_row02)
+                time.sleep(sleepValue/2)
                 print(princess_row03)
+                time.sleep(sleepValue/2)
                 print(princess_row04)
+                time.sleep(sleepValue/2)
                 print(princess_row05)
+                time.sleep(sleepValue/2)
                 print(princess_row06)
+                time.sleep(sleepValue/2)
                 print(princess_row07)
+                time.sleep(sleepValue/2)
                 print(princess_row08)
+                time.sleep(sleepValue/2)
                 print(princess_row09)
+                time.sleep(sleepValue/2)
                 print(princess_row10)
+                time.sleep(sleepValue/2)
                 print(princess_row11)
+                time.sleep(sleepValue/2)
                 print(princess_row12)
+                time.sleep(sleepValue/2)
                 print(princess_row13)
+                time.sleep(sleepValue/2)
                 print(princess_row14)
+                time.sleep(sleepValue/2)
                 print(princess_row15)
+                time.sleep(sleepValue/2)
                 print(princess_row16)
+                time.sleep(sleepValue/2)
                 print(princess_row17)
+                time.sleep(sleepValue/2)
                 print(princess_row18)
+                time.sleep(sleepValue/2)
                 print(princess_row19)
+                time.sleep(sleepValue/2)
                 print(princess_row20)
+                time.sleep(sleepValue/2)
                 print(princess_row21)
+                time.sleep(sleepValue/2)
                 print(princess_row22)
+                time.sleep(sleepValue/2)
                 print(princess_row23)
+                time.sleep(sleepValue/2)
                 print(princess_row24)
+                time.sleep(sleepValue/2)
                 print(princess_row25)
+                time.sleep(sleepValue/2)
                 print(princess_row26)
+                time.sleep(sleepValue/2)
                 print(princess_row27)
+                time.sleep(sleepValue/2)
                 print(princess_row28)
+                time.sleep(sleepValue/2)
                 print(princess_row29)
+                time.sleep(sleepValue/2)
                 print('GRATULACJE - WYGRAŁEŚ GRĘ!\n\n\n')
                 sys.exit()
             else:
