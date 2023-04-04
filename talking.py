@@ -1,4 +1,5 @@
 import random
+import sys
 def talk(playerPos, witchPos, innKeeperPos, princessPos, hiddenKeyFound):     # (future) talking with NPCs
     print('KEY STATUS ',hiddenKeyFound)
 #____________INNKEEPER____________
@@ -45,6 +46,39 @@ def talk(playerPos, witchPos, innKeeperPos, princessPos, hiddenKeyFound):     # 
     princess_reacts_gate_opens = ' - Cudownie, w końcu wolność. Otwieraj szybciej, już nie mogę się doczekać!' 
     princess_reacts_gate_closed = ' - Jak to? Myślałam, że udało Ci się zdobyć klucz. Wróć proszę z kluczem!'
     princess_open_gate_decide = ' - Masz klucz do kłódki w kracie? (T/N): '
+
+    princess_row01 = '                 __'
+    princess_row02 = '                /__`.'
+    princess_row03 = '               / \ `\ \ '
+    princess_row04 = '              /   \  `\ '
+    princess_row05 = '             /     \   \ '
+    princess_row06 = '            /_______\  /\ '
+    princess_row07 = '            (((( ))))'
+    princess_row08 = "           (((' . ')))"
+    princess_row09 = '           (((\_-_/)))'
+    princess_row10 = '           (((_) (_)))'
+    princess_row11 = '          /((( \ / )))\ '
+    princess_row12 = '         / (((  ^  ))) \ '
+    princess_row13 = '        / / ((  ^  )) \ \ '
+    princess_row14 = '       ( (   \  ^  /   ) )'
+    princess_row15 = '        \ \   )www(   / /'
+    princess_row16 = "         `\\ /     \ //'"
+    princess_row17 = "           /'       `\ "
+    princess_row18 = '          /           \ '
+    princess_row19 = '         /             \ '
+    princess_row20 = '        /               \ '
+    princess_row21 = '       /                 \ '
+    princess_row22 = '      /                   \ '
+    princess_row23 = '     /                     \ '
+    princess_row24 = '    /                       \ '
+    princess_row25 = '   /                         \ '
+    princess_row26 = '  /                           \ '
+    princess_row27 = ' |                             |'
+    princess_row28 = "  `-----......_____......-----'"
+    princess_row29 = '                               '
+
+
+
  #____________talking____________   
     if (playerPos == witchPos):
         u_inp=input(witch_hello)
@@ -59,7 +93,7 @@ def talk(playerPos, witchPos, innKeeperPos, princessPos, hiddenKeyFound):     # 
                     hiddenKeyFound=True
                     print('KEY STATUS AFTER QUEST ',hiddenKeyFound)
                     print(witch_gives_award)
-                    return(hiddenKeyFound)
+                    # return(hiddenKeyFound)
                 else:
                     print(witch_gives_no_award)
             elif (u_inp=='N' or u_inp=='n'):
@@ -83,17 +117,48 @@ def talk(playerPos, witchPos, innKeeperPos, princessPos, hiddenKeyFound):     # 
             print(inn_repeat)
 
     elif (playerPos == princessPos):
-        if (hiddenKeyFound==False):
+        if (hiddenKeyFound==False or hiddenKeyFound==None):     # how to force the game not to switch into None?
             print(princess_hello_locked)
         elif (hiddenKeyFound==True):
-            print(princess_hello_unlocked)      # SOMETHING IS WRONG HERE... REBUILD THIS PART, GAME CRASHES
-        else:
+            print(princess_hello_unlocked)
             u_inp=input(princess_open_gate_decide)
             if (u_inp=='T' or u_inp=='t'):
                 print(princess_reacts_gate_opens)
-                print('GRATULACJE - WYGRAŁEŚ GRĘ!')
+                print('\n\n\n')
+                print(princess_row01)
+                print(princess_row02)
+                print(princess_row03)
+                print(princess_row04)
+                print(princess_row05)
+                print(princess_row06)
+                print(princess_row07)
+                print(princess_row08)
+                print(princess_row09)
+                print(princess_row10)
+                print(princess_row11)
+                print(princess_row12)
+                print(princess_row13)
+                print(princess_row14)
+                print(princess_row15)
+                print(princess_row16)
+                print(princess_row17)
+                print(princess_row18)
+                print(princess_row19)
+                print(princess_row20)
+                print(princess_row21)
+                print(princess_row22)
+                print(princess_row23)
+                print(princess_row24)
+                print(princess_row25)
+                print(princess_row26)
+                print(princess_row27)
+                print(princess_row28)
+                print(princess_row29)
+                print('GRATULACJE - WYGRAŁEŚ GRĘ!\n\n\n')
                 sys.exit()
             else:
                 print(princess_reacts_gate_closed)
     else:
         print('...Sam ze sobą możesz najwyżej pogadać...')
+# hiddenKeyFound=True
+    return(hiddenKeyFound)

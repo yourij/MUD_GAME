@@ -3,7 +3,7 @@ import time
 import random
 import fields 
 import talking
-import sys
+
 
 # import functions (later all fights etc to be moved there)
 os.system('clear')
@@ -25,6 +25,7 @@ H = wyświetl pomoc
 # 1) Create parent-child class system instead of following simple classes
 # 2) ...and more :)
 class Field:
+    display_name = 'None'
     def __init__(self, North, South, East, West, appearance, name, grid) -> None:
         self.North = North          # boolean
         self.South = South          # boolean
@@ -33,6 +34,14 @@ class Field:
         self.apperance = appearance # string, long description
         self.name = name            # string, short
         self.grid = grid            # list, XY coordinates - in case of Field maybe tuple instead of list?
+    
+    @classmethod            # ON HOLD - how to print defined text names for new field by taking field data already created...?
+    def disp_name(disp_name_name):
+        return (disp_name_name)
+        pass
+
+
+
 class Place:
     def __init__(self, appearance, name, location, isLocked) -> None:
         self.apperance = appearance # string, long description
@@ -276,14 +285,26 @@ innKeeper   = Npc(innKeeperDesc,    innKeeperName,  innKeeperPos,   innKeeperHP,
 dummyMonster = Monster(monsterDesc, monsterName, monsterPos, monsterLoc, monsterHP, monsterImmportal, monsterHPbonus)
 
 print('Przybywasz na miejsce. '+fields.meadowDescription()+'\n')    # CHANGE THIS if starting position is changed. Otherwise its a direct callout of field description
+
+# TEST AREA FOR NEW SHORT PARTS OF CODE........
+print('\n\n\n             ON HOLD - how to print defined text names for new field by taking field data already created...?\n\n\n\n\n\n\n')
+
+print(Field.disp_name)
+print(meadow.disp_name)
+print(hills.disp_name)
+
+# END OF TEST AREA
+
+
 while (playerHP>0):
     show_grid=[current_Place for current_Place, current_Grid in gameFields.items() if current_Grid==playerPos]
-    u_inp=input('Znajdujesz się na polu: '+str(player.grid)+' '+str(show_grid)+'.Podaj komendę\n (N) (S) (E) (W) (T) (L) (H) (F)? ')
+    u_inp=input('Znajdujesz się na polu: '+str(player.grid)+' '+str(show_grid))#+'.Podaj komendę\n (N) (S) (E) (W) (T) (L) (H) (F)? ')
     # make this OR thing shorter somehow !!!
     if (u_inp=='N' or u_inp=='n' or u_inp=='S' or u_inp=='s' or u_inp=='E' or u_inp=='e' or u_inp=='W' or u_inp=='w'):
             walk_result=walk(u_inp)
     elif ((u_inp=='T' or u_inp=='t')):
-        hiddenKeyFound=(talking.talk(playerPos, witchPos, innKeeperPos, princessPos, hiddenKeyFound))
+        hiddenKeyFound=(talking.talk(playerPos, witchPos, innKeeperPos, princessPos, hiddenKeyFound))       # zwraca hiddenKeyFound=None
+        print('KLUCZ return test: ',hiddenKeyFound)
     elif ((u_inp=='L' or u_inp=='l')):
         show_desc=[x for x, current_Desc in gameFieldsDesc.items() if current_Desc==playerPos]
         print(str(show_desc[0]))
@@ -304,7 +325,7 @@ while (playerHP>0):
             ''')
     else:
         print('USE YOUR KEYBOARD WISELY...\n')
-
+    
     
 
     # print('\n')  

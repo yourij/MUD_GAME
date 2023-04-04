@@ -70,4 +70,3 @@ Po środku karczma. I krowa. Krowa robi "Muuuu...".
 Krowa robi też placki ale to inna historia.
 '''
     return(text)
-
