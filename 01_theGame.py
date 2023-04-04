@@ -183,10 +183,7 @@ def walk(input_direction):     # moving aroung the grid, gets input from user (n
     time.sleep(sleepValue)
     current_grid=[currentPlace for currentPlace, currentGrid in gameFields.items() if currentGrid==playerPos]
     return(current_grid)
-def pickUp():   # (future) pick up an object function
-    print('pickUp function')
-def enter():    # (future) entering the buildings
-    print('enter function')
+
 
 # player
 playerName='Stefan'
