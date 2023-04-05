@@ -301,7 +301,8 @@ while (playerHP>0):
             ''')
     else:
         print('Nie rozumiem? Spróbuj pisać czytelnie: \n')
-    
+
+
     
 
     # print('\n')  

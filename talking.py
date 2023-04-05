@@ -1,9 +1,12 @@
 import random
 import sys
 import time
+import json
 sleepValue=1
 
 def talk(playerPos, witchPos, innKeeperPos, princessPos, hiddenKeyFound):     # (future) talking with NPCs
+    with open('talking.json') as f:
+        speach = json.load(f)
 
 #____________INNKEEPER____________
     inn_hello = '''
@@ -42,7 +45,7 @@ def talk(playerPos, witchPos, innKeeperPos, princessPos, hiddenKeyFound):     # 
     witch_gives_award = '\n - DOSKONALE! Widać, że znasz tabliczkę mnożenia! Weź proszę ten KLUCZ. :)\n'
     witch_gives_no_award = '\n - No chyba sobie żartujesz! Wróć, gdy się dowiesz ile to jest!\n'
     witch_response_key1 = '\n - Aaa... mam go od dawna, ale jestem tak stara...'
-    witch_response_key2 = '\n - Poszukaj w okolicy, może we wiosce?'
+    witch_response_key2 = 'Poszukaj w okolicy, może we wiosce? - dodaje wiedźma po chwili.'
     witch_goodbye1 = '\n - Do widzenia!\n'
     witch_goodbye2 = '\n - Nie wiem, o czym mówisz. Jestem zajęta, przyjdź kiedy indziej\n'
 #____________PLAYER____________
@@ -92,6 +95,8 @@ def talk(playerPos, witchPos, innKeeperPos, princessPos, hiddenKeyFound):     # 
     if (playerPos == witchPos):
         u_inp=input(witch_hello)
         if (u_inp=='T' or u_inp=='t'):
+            # for phrase in speach['talking']:          # ON HOLD !!!!!!!!!!
+            #     print(phrase['witch_gives_apple'])    # NOT WORKING
             print(witch_gives_apple)
         elif (u_inp=='N' or u_inp=='n'):
             u_inp=input(witch_asking_1)
