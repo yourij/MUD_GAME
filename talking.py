@@ -4,10 +4,13 @@ import time
 import json
 sleepValue=1
 
-def talk(playerPos, witchPos, innKeeperPos, princessPos, hiddenKeyFound):     # (future) talking with NPCs
-    with open('talking.json') as f:
-        speach = json.load(f)
+def phrase_look():          # future to make code more compact
+    pass
 
+def talk(playerPos, witchPos, innKeeperPos, princessPos, hiddenKeyFound):     # talking with NPCs
+    with open('talking.json') as f:
+       my_json = json.load(f)
+    f.close()
 #____________INNKEEPER____________
     inn_hello = '''
  - Co podać? Tu jest menu (M):
@@ -89,41 +92,52 @@ def talk(playerPos, witchPos, innKeeperPos, princessPos, hiddenKeyFound):     # 
     princess_row28 = "  `-----......_____......-----'"
     princess_row29 = '                               '
 
-
-
  #____________talking____________   
     if (playerPos == witchPos):
-        u_inp=input(witch_hello)
+        with open('talking.json') as f:
+            my_json = json.load(f)
+        for phrase in my_json["phrases"]:
+            u_inp=input(phrase["witch_hello"])
         if (u_inp=='T' or u_inp=='t'):
-            # for phrase in speach['talking']:          # ON HOLD !!!!!!!!!!
-            #     print(phrase['witch_gives_apple'])    # NOT WORKING
-            print(witch_gives_apple)
+            for phrase in my_json["phrases"]:
+                u_inp=input(phrase["witch_gives_apple"])
         elif (u_inp=='N' or u_inp=='n'):
-            u_inp=input(witch_asking_1)
+            for phrase in my_json["phrases"]:
+                u_inp=input(phrase["witch_asking_1"])
             if (u_inp=='T' or u_inp=='t'):
-                witch_math_quest[random_math_question]
-                u_inp=input(witch_math)
+                # witch_math_quest[random_math_question]
+                u_inp=input(witch_math)                       # not a JSON because of '+str(random_math_question)+'
                 if (u_inp==witch_math_quest[random_math_question]):
                     hiddenKeyFound=True
-                    print(witch_gives_award)
-                    time.sleep(sleepValue) 
-                    print(player_gets_key)
-                    time.sleep(sleepValue)
-                    print(player_responds_key)
-                    time.sleep(sleepValue)
-                    print(witch_response_key1)
-                    time.sleep(sleepValue) 
-                    print(witch_response_key2)
-                    time.sleep(sleepValue) 
-                    print(witch_goodbye1)
+                    for phrase in my_json["phrases"]:
+                        u_inp=input(phrase["witch_gives_award"])
+                    #time.sleep(sleepValue)
+                    for phrase in my_json["phrases"]:
+                        u_inp=input(phrase["player_gets_key"])
+                    #time.sleep(sleepValue)
+                    for phrase in my_json["phrases"]:
+                        u_inp=input(phrase["player_responds_key"])
+                    #time.sleep(sleepValue)
+                    for phrase in my_json["phrases"]:
+                        u_inp=input(phrase["witch_response_key1"])
+                    #time.sleep(sleepValue)
+                    for phrase in my_json["phrases"]:
+                        u_inp=input(phrase["witch_response_key2"])
+                    #time.sleep(sleepValue)
+                    for phrase in my_json["phrases"]:
+                        u_inp=input(phrase["witch_goodbye1"])
                 else:
-                    print(witch_gives_no_award)
+                    for phrase in my_json["phrases"]:
+                        u_inp=input(phrase["witch_gives_no_award"])
             elif (u_inp=='N' or u_inp=='n'):
-                print(witch_goodbye1)
+                for phrase in my_json["phrases"]:
+                    u_inp=input(phrase["witch_goodbye1"])            
             else:
-                print(witch_goodbye2)
+                for phrase in my_json["phrases"]:
+                    u_inp=input(phrase["witch_goodbye2"])
         else:
-            print(witch_goodbye2)
+            for phrase in my_json["phrases"]:
+                u_inp=input(phrase["witch_goodbye2"])
             
     elif (playerPos == innKeeperPos):
         u_inp=input(inn_hello)
@@ -212,4 +226,5 @@ def talk(playerPos, witchPos, innKeeperPos, princessPos, hiddenKeyFound):     # 
     else:
         print('...Sam ze sobą możesz najwyżej pogadać...')
 # hiddenKeyFound=True
+#    f.close()
     return(hiddenKeyFound)

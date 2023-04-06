@@ -1,7 +1,7 @@
-{"talking": [
+{"phrases":[
     {
         "witch_hello":"\n - Czego chcesz, nieznajomy? Chcesz jabłuszko? (T/N): ",
-        "witch_gives_apple":"\n - Smacznego, hahaha... A teraz już idź, nic więcej dla Ciebie nie mam.",
+        "witch_gives_apple":"\n - Smacznego, hahaha... A teraz już idź, nic więcej dla Ciebie nie mam.\n",
         "witch_asking_1":"\n - Nie jesteś głodny? Czy chcesz coś jeszcze? (T/N): ",
         "witch_math":"\n - No dobrze, dam Ci coś jeśli powiesz, ile to jest '+str(random_math_question)+': ",
         "witch_gives_award":"\n - DOSKONALE! Widać, że znasz tabliczkę mnożenia! Weź proszę ten KLUCZ. :)\n",
@@ -9,20 +9,14 @@
         "witch_response_key1":"\n - Aaa... mam go od dawna, ale jestem tak stara...",
         "witch_response_key2":"Poszukaj w okolicy, może we wiosce? - dodaje wiedźma po chwili.",
         "witch_goodbye1":"\n - Do widzenia!\n",
-        "witch_goodbye2":"\n - Nie wiem, o czym mówisz. Jestem zajęta, przyjdź kiedy indziej\n"
-    },
-    {
+        "witch_goodbye2":"\n - Nie wiem, o czym mówisz. Jestem zajęta, przyjdź kiedy indziej\n",
         "player_gets_key":"Bierzesz do ręki zardzewiały klucz.",
-        "player_responds_key":"\n - A możesz mi... Może Pani powiedzieć, do czego ten klucz?"
-    },
-    {
+        "player_responds_key":"\n - A możesz mi... Może Pani powiedzieć, do czego ten klucz?",
         "princess_hello_locked":" - Przybyłeś mnie uratować? No spoko, tylko wiesz... kratę otwórz.",
         "princess_hello_unlocked":" - Powiedz, że potrafisz pozbyć się tej kraty. Och, tyle czasu już tu siedzę zamknięta... Buuu.... \nW tym momencie księżniczka rozpłakała się na dobre.",
         "princess_reacts_gate_opens":" - Cudownie, w końcu wolność. Otwieraj szybciej, już nie mogę się doczekać!",
         "princess_reacts_gate_closed":" - Jak to? Myślałam, że udało Ci się zdobyć klucz. Wróć proszę z kluczem!",
-        "princess_open_gate_decide":" - Masz klucz do kłódki w kracie? (T/N): "
-    },
-    {
+        "princess_open_gate_decide":" - Masz klucz do kłódki w kracie? (T/N): ",
         "inn_hello":" - Co podać? Tu jest menu (M):\n(P) - Zupa pomidorowa : 1 oko wiedźmy\n(R) - Rosół           : 2 oczy wiedźmy\n(Z) - Żurek           : 3 oczy wiedźmy ",
         "inn_dish1":"\n - Proszę, pomidorowa jak chciałeś.",
         "inn_dish2":"\n - Rosół z kur dużej ilości, wedle życzenia",
