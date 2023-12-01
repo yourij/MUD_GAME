@@ -320,5 +320,3 @@ while (playerHP>0):
     # print("Player instance location: ",player.grid) # calling player.grid works fine as well
 
     # print('\n')  
-
-    
